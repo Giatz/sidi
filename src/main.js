@@ -1,17 +1,21 @@
 //import './style.css'
 //import { setupCounter } from './counter.js'
 
-import headerModule from './components/header.js'
-import searchBarModule from './components/buscador.js'
-import resultView from './components/resultaView.js'
-import detailView from './components/detailView.js'
 
-document.querySelector('#app').innerHTML = `
-${headerModule}  
-${searchBarModule}
+import { headerView } from './components/header.js'
+import { searchView } from './components/buscador.js'
+import { resultView } from './components/resultaView.js'
+import { detailView } from './components/detailView.js'
+
+const app = document.querySelector('#app');
+
+app.appendChild(headerView);
+app.appendChild(searchView);
+/* .innerHTML = `  
+${searchView}
 ${resultView}
 ${detailView}
-`
+` */
 
 
 

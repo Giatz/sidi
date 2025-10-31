@@ -1,4 +1,4 @@
-const resultView = `
+export const resultView = `
     <div id="resultsView" class="view hidden">
         <button onclick="showView('searchView')" class="mb-4 text-blue-600 hover:text-blue-800 font-medium flex items-center transition duration-150">< Volver a la Búsqueda</button>
 
@@ -9,4 +9,3 @@ const resultView = `
     </div>
 `
 
-export default resultView;
