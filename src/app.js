@@ -1,4 +1,8 @@
-const api = 'http://localhost:3000/';
+import { getAreasConocimiento, getDivision, updateDepartamento, search } from './components/buscador.js';
+
+//const api = import.meta.env.VITE_API_ROUTE;
+
+//console.log(`API Route:, ${api}`);
 
 let departamentosMap = {
     Guanajuato: ["DCEA", "DCNE", "DAAD", "DCSH", "DI", "DDPG"],
@@ -49,47 +53,13 @@ let researchersdata2 = [
             }
 ]
 
-const colorSchema = [
-  {
-    // Fondo Oscuro, Texto Claro
-    fondo: '2C3E50', // Azul Petróleo (Oscuro)
-    texto: 'F9E79F' // Amarillo Suave (Claro)
-  },
-  {
-    // Fondo Claro, Texto Oscuro
-    fondo: 'E8DAEF', // Lavanda Pálida (Claro)
-    texto: '8E44AD' // Púrpura Intenso (Oscuro)
-  },
-  {
-    // Fondo Oscuro, Texto Claro
-    fondo: '145A32', // Verde Bosque (Oscuro)
-    texto: 'A9DFBF' // Menta Pálida (Claro)
-  },
-  {
-    // Fondo Claro, Texto Oscuro
-    fondo: 'FCF3CF', // Crema (Claro)
-    texto: 'D35400' // Naranja Calabaza (Oscuro)
-  },
-  {
-    // Fondo Oscuro, Texto Claro
-    fondo: '626567', // Gris Carbón (Oscuro)
-    texto: 'FFFFFF' // Blanco Puro (Claro)
-  },
-  {
-    // Fondo Claro, Texto Oscuro
-    fondo: 'BBDEFB', // Azul Cielo Claro (Claro)
-    texto: '2980B9' // Azul Brillante (Oscuro)
-  }
-]
 
 let currentView = 'searchView';
 
-function randomColor(array) {
-  const indiceAleatorio = Math.floor(Math.random() * array.length);
-  return array[indiceAleatorio];
-}
+
 
 /* Manejador de vistas */
+/*
 function showView(viewId) {
     document.querySelectorAll('.view').forEach(view => {
         view.classList.add('hidden');
@@ -97,7 +67,8 @@ function showView(viewId) {
     document.getElementById(viewId).classList.remove('hidden');
     currentView = viewId;
 }
-
+*/
+/* 
 function getAreasConocimiento() {
     const areaSelect = document.getElementById('filterArea');
     areaSelect.innerHTML = '<option value="">-- Seleccione Area de Conocimiento --</option>';
@@ -113,7 +84,8 @@ function getAreasConocimiento() {
     }
     })
 }
-
+ */
+/*
 function getDivision() {
     //const campus = document.getElementById('filterCampus').value;
     const divisionSelect = document.getElementById('filterDivision');
@@ -131,7 +103,8 @@ function getDivision() {
         }
     })
 }
-
+*/
+/*
 function updateDepartamento() {
     const division = document.getElementById('filterDivision').value;
     const departamentoSelect = document.getElementById('filterDepartamento');
@@ -149,7 +122,8 @@ function updateDepartamento() {
     })
     
 }
-
+*/
+/*
 function search() {
     const resultsContainer = document.getElementById('resultsContainer');
     resultsContainer.innerHTML= '';
@@ -202,14 +176,11 @@ function search() {
     } )
     
 }
-
-/* Get Researchers list */
-function getResearchers() {
-    const area = document.getElementById()
-}
+*/
 
 
 /* Detail Profile View */
+/*
 function viewProfile(researcherId) {
     const researcher = researchersdata.find(r => r.id === researcherId);
     const profileContent = document.getElementById('profileContent');
@@ -220,6 +191,7 @@ function viewProfile(researcherId) {
         return;
     }
     /* Contenido del profile */
+    /*
     const publicationsHtml = researcher.publications.map(p => `
         <div class="mb-3 p-3 bg-gray-50 rounded-lg shadow-sm">
             <p class="text-gray-800 font-semibold">${p.title} (${p.year})</p>
@@ -243,9 +215,10 @@ function viewProfile(researcherId) {
             ${t}
         </li>
     `).join('');
-
-    /* Estructura principal del perfil con dos columnas (Información principal y Contacto/General) */
-    /* Encabezado del Perfil */
+*/
+    //Estructura principal del perfil con dos columnas (Información principal y Contacto/General) 
+    //Encabezado del Perfil 
+/*
     profileContent.innerHTML = `
         <div class="flex flex-col md:flex-row items-center md:items-start pb-6 mb-8 border-b-2 border-blue-50">
             <img src="${researcher.imageUrl}" alt="Foto de ${researcher.name}" 
@@ -318,10 +291,11 @@ function viewProfile(researcherId) {
 
     showView('profileView');
 }
+*/
 /* API Conectivity */
 
 /* Handlers */
-function getHandler(api, endpoint, callback) {
+/* function getHandler(api, endpoint, callback) {
     fetch(`${api}${endpoint}`,{
         method: "GET",
         headers: {
@@ -334,7 +308,7 @@ function getHandler(api, endpoint, callback) {
         //callback(ans.result)
         callback(ans.data)
     })
-}
+} */
 
 
 
@@ -343,3 +317,11 @@ function getHandler(api, endpoint, callback) {
 document.addEventListener('DOMContentLoaded', getAreasConocimiento)
 document.addEventListener('DOMContentLoaded', getDivision)
 //document.addEventListener('DOMContentLoaded', updateDivision);
+
+document.getElementById('filterDivision').addEventListener('change', () => {
+    updateDepartamento();
+});
+
+document.getElementById('buttonSearch').addEventListener('click', () => {
+    search();
+});

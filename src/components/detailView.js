@@ -1,4 +1,7 @@
-export const detailView = `
+export const detailView = document.createElement('section');
+detailView.className = 'view hidden';
+detailView.id = 'profileView';
+detailView.innerHTML =`
     <div id="profileView" class="view hidden">
         <button onclick="showView('resultsView')" class="mb-6 text-blue-600 hover:text-blue-800 font-medium flex items-center transition duration-150">< Volver a los Resultados</button>
 

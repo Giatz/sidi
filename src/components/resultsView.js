@@ -1,4 +1,7 @@
-export const resultView = `
+export const resultView = document.createElement('section');
+resultView.className = 'view hidden';
+resultView.id = 'resultsView';
+resultView.innerHTML =`
     <div id="resultsView" class="view hidden">
         <button onclick="showView('searchView')" class="mb-4 text-blue-600 hover:text-blue-800 font-medium flex items-center transition duration-150">< Volver a la Búsqueda</button>
 

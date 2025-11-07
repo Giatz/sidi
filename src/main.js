@@ -4,18 +4,17 @@
 
 import { headerView } from './components/header.js'
 import { searchView } from './components/buscador.js'
-import { resultView } from './components/resultaView.js'
+import { resultView } from './components/resultsView.js'
 import { detailView } from './components/detailView.js'
 
 const app = document.querySelector('#app');
 
+
 app.appendChild(headerView);
 app.appendChild(searchView);
-/* .innerHTML = `  
-${searchView}
-${resultView}
-${detailView}
-` */
+app.appendChild(resultView);
+app.appendChild(detailView);
+
 
 
 
