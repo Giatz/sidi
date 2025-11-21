@@ -1,4 +1,4 @@
-import { showView } from "./views";
+import { showView } from "../utils/views";
 /* Detail Profile View */
 export function viewProfile(researcherId) {
     const researcher = researchersdata.find(r => r.id === researcherId);

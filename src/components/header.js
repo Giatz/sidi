@@ -1,8 +1,11 @@
 export const headerView = document.createElement('header');
 headerView.id = 'headerView';
-headerView.className = 'mb-8 border-b pb-4';
+headerView.className = 'row';
 headerView.innerHTML = `
-    <h1 class="text-3xl font-extrabold text-gray-800">Directorio de Investigadores</h1>
-    <p class="text-gray-500">Encuentra a nuestros expertos por área o departamento.</p>
+    <h1>Directorio de Investigadores</h1>
+    <p>Encuentra a nuestros expertos por área o departamento.</p>
 `
 ;
+
+/* class="text-3xl font-extrabold text-gray-800" */
+/* class="text-gray-500" */

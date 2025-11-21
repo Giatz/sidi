@@ -1,92 +1,48 @@
 import { getHandler } from './handler.js';
-import { showView } from './views.js';
+import { showView } from '../utils/views.js';
 import { randomColor, colorSchema } from '../utils/colorSchema.js';
 
-const api = import.meta.env.VITE_API_ROUTE || 'http://localhost:3000/';
-/* 
-export const search = `
-    <div id="searchView" class="view">
-            <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
-                <h2 class="text-2xl font-bold mb-6 text-blue-700">Filtros de la busqueda</h2>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <!-- Buscador -->
-                    <div class="md:col-span-12">
-                        <label for="buscadorInput" class="block text-sm font-medium text-gray-700 mb-1">Buscar por Nombre o Titulo de la Investigación</label>
-                        <input type="text" id="buscadorInput" placeholder="Ej: Aguilar, Biología, Sociales..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150">
-                    </div>
-                    <!-- Filtro principal -->
-                    <div>
-                        <label for="filterArea" class="block text-sm font-medium text-gray-700 mb-1">Area de conocimiento</label>
-                        <select id="filterArea" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 transition duration-150">
-                            <option value="">-- Seleccione Area de Conocimiento --</option>
-                            <option value="Guanajuato"> Campus Guanajuato </option>
-                            <option value="Leon"> Campus León </option>
-                        </select>
-                     </div>
-                    <!-- Filtro secundario -->
-                     <div>
-                        <label for="filterDivision" class="block text-sm font-medium text-gray-700 mb-1">División</label>
-                        <select id="filterDivision" onchange="updateDepartamento()" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 transition duration-150">
-                            <option value="">-- Seleccione División --</option>
-                        </select>
-                     </div>
-                     <!-- Filtro terciario (Eliminar de aqui y ver su posible uso en los resultados)-->
-                      <div>
-                        <label for="filterDepartamento" class="block text-sm font-medium text-gray-700 mb-1">Departamento</label>
-                        <select id="filterDepartamento" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 transition duration-150">
-                            <option value="">-- Seleccione Departamento --</option>
-                        </select>
-                      </div>                      
-                </div>
-                <!-- Button -->
-                <div class="mt-8 text-center">
-                    <button onclick="search()" class="w-full md:w-auto px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 transform hover:scale-[1.01]">
-                        Buscar Investigadores
-                    </button>
-                </div>
-            </div>
-        </div>
-`; */  
+const api = import.meta.env.VITE_API_ROUTE;
 
 export const searchView = document.createElement('section');
-searchView.className = 'view';
+searchView.className = 'row';
 searchView.id = 'searchView';
 searchView.innerHTML = `
-    <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
-        <h2 class="text-2xl font-bold mb-6 text-blue-700">Filtros de la busqueda</h2>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div>
+        <h2>Filtros de la busqueda</h2>
+        <div class="row">
             <!-- Buscador -->
-            <div class="md:col-span-12">
-                <label for="buscadorInput" class="block text-sm font-medium text-gray-700 mb-1">Buscar por Nombre o Titulo de la Investigación</label>
-                <input type="text" id="buscadorInput" placeholder="Ej: Aguilar, Biología, Sociales..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+            <div class="mb-4">
+                <label for="buscadorInput" class="form-label">Buscar por Nombre o Titulo de la Investigación</label>
+                <input type="text" id="buscadorInput" placeholder="Ej: Aguilar, Biología, Sociales..." class="form-control">
             </div>
             <!-- Filtro principal -->
-            <div>
-                <label for="filterArea" class="block text-sm font-medium text-gray-700 mb-1">Area de conocimiento</label>
-                <select id="filterArea" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+            <div class="col-4 mb-4">
+                <label for="filterArea" class="form-label">Area de conocimiento</label>
+                <select id="filterArea" class="form-select">
                     <option value="">-- Seleccione Area de Conocimiento --</option>
                     <option value="Guanajuato"> Campus Guanajuato </option>
                     <option value="Leon"> Campus León </option>
                 </select>
             </div>
             <!-- Filtro secundario -->
-            <div>
-                <label for="filterDivision" class="block text-sm font-medium text-gray-700 mb-1">División</label>
-                <select id="filterDivision" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+            <div class="col-4 mb-4">
+                <label for="filterDivision" class="form-label">División</label>
+                <select id="filterDivision" class="form-select">
                     <option value="">-- Seleccione División --</option>
                 </select>
             </div>
             <!-- Filtro terciario (Eliminar de aqui y ver su posible uso en los resultados)-->
-            <div>
-                <label for="filterDepartamento" class="block text-sm font-medium text-gray-700 mb-1">Departamento</label>
-                <select id="filterDepartamento" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+            <div class="col-4 mb-4">
+                <label for="filterDepartamento" class="form-label">Departamento</label>
+                <select id="filterDepartamento" class="form-select">
                     <option value="">-- Seleccione Departamento --</option>
                 </select>
             </div>
         </div>
         <!-- Button -->
-        <div class="mt-8 text-center">
-            <button id="buttonSearch" class="w-full md:w-auto px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 transform hover:scale-[1.01]">
+        <div style="display: flex; justify-content: center;">
+            <button id="buttonSearch" class="btn btn-primary">
             Buscar Investigadores
             </button>
         </div>
@@ -148,6 +104,7 @@ export function updateDepartamento() {
 export function search() {
     const resultsContainer = document.getElementById('resultsContainer');
     resultsContainer.innerHTML= '';
+    resultsContainer.className = 'row justify-content-around';
 
     const area = document.getElementById('filterArea').value;
     const division = document.getElementById('filterDivision').value;
@@ -165,15 +122,15 @@ export function search() {
             const card = document.createElement('div');
             let colors = randomColor(colorSchema);
             
-            card.className = 'bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden';
+            card.className = 'card col-5 mt-2';
             card.innerHTML = `
-            <div class="flex flex-col sm:flex-row p-5 items-start sm:items-center">
+            <div class="row card-body">
                 <!-- Imagen/Avatar -->
                 <img src="https://placehold.co/100x100/${colors.fondo}/${colors.texto}?text=${researcher.nombre.slice(0,2).toUpperCase()}" alt="Foto de ${researcher.nombre}" 
-                class="w-24 h-24 rounded-full object-cover mr-4 mb-4 sm:mb-0 border-4 border-blue-100">
+                class="col-2">
                 
                 <!-- Main Info -->
-                <div class="flex-grow">
+                <div class="col-10">
                     <h3 class="text-xl font-bold text-gray-800 hover:text-blue-600 cursor-pointer" onclick="viewProfile(${researcher.id})">
                     ${researcher.nombre}
                     </h3>
